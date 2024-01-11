@@ -1,0 +1,103 @@
+Pixar... the studio behind this, and this, and this
+has mastered a sort of photo-surrealistic style
+where there's a sense of cartoony-ness
+but most things look and feel like they could exist in the real world.
+Like these fibers on Mr. Incredible's shirt.
+And this tree stump and grass from this scene from Up.
+Or the glimmering, out-of-focus bokeh behind Bo Peep.
+And it's not just Pixar.
+These movies look so similar
+you can barely tell they're from different animation studios.
+But when you look at these movies
+it's clear that something different is happening.
+These lights don't just illuminate; they reveal a texture.
+This tree in the background isn't out of focus it's just got a simplified look.
+And this hair looks more like brush strokes than human hair.
+These films are part of a new trend that's steering animation away
+from replicating the real world and into somewhere new.
+Crafting beautiful animation in CG films requires a lot of dedicated artists to perform specialized tasks: like rendering.
+Rendering is the process by which a computer takes geometry, textures, lighting, camera inputs
+and does a bunch of math to apply all that information into a final image. Like this one.
+Most render engines, like the one I'm using here, are physically based
+which essentially means that it tries to replicate the real world physics of light, shadow, reflection, and more.
+You can see this type of rendering all over Pixar's work
+even going back to their first movie.
+Rex looks like he could exist in the real world.
+Every meeting we would have, everybody brought up like the Pixar look.
+The Pixar look was something that was very high quality very successful at the box office
+so everybody kind of wanted the Pixar look.
+My name is Christos Obretenov.
+Christos is the CEO of Lollipop Shaders
+a company that builds custom shaders and plugins for 3D software.
+He's worked on tons of films including "Life of Pi",
+"A Christmas Carol," and the upcoming "Across the Spider-Verse".
+But before all that he worked on a bunch of films that tried to replicate that Pixar look.
+Because it was reliable, popular, and safe.
+Part of doing a feature film is, you know, a lot of money and a lot of time.
+So they were kind of chasing that Pixar dream of having that kind of a success.
+So to go and spend, you know, 100 million dollars or more...
+you know, the investors and what not are probably saying:
+"It's got to look like Pixar or Disney." Right?
+And that was the case for a long time.
+Even when studios wanted to try something different:
+Disney would come up and interview for a movie that ended up being called "Bolt".
+They were showing us this really cool concept art and they're like:
+"Oh, it's going to be super stylized."
+"It's going to look like sort of like the concept art."
+And it was very exciting. I was like, "Oh, this is great."
+And then when the movie did come out
+I mean, Bolt is fantastic, but they made it very, you know, that same look.
+Movies like "Monster House" and "A Christmas Carol" were intended to look stylized too
+but ultimately they settled back into that tried-and-true physically based rendering look.
+There were glimmers of more stylized approaches in short film tests
+and small sequences like in Disney's Moana.
+But this stylized sequence is only about 30 seconds out of the hour and 43 minute-long film.
+A lot of studios have been playing with this for a long time.
+But to take that risk to do a full feature film
+that's very stylized in 3D I think people were scared.
+And that fear kept studios from making bold choices.
+Until 2017 when the trailer for "Into the Spider-Verse" dropped.
+It had simplified graphic bursts that felt like comic book panels.
+There was no motion blur or depth of field
+and everything, from the characters to the environments, was full of texture.
+According to one of the animation supervisors for the project
+after a year and a half of work
+the studio was still nervous that people were going to hate the visuals.
+Because they felt like they were taking too many risks.
+Instead of leaning into the safe, physically based, rendering look
+"Into the Spider-Verse" chose to use non-photorealistic rendering.
+To pull this off, they essentially had to break their physically-based renderer.
+Instead of inputting data from lights, camera, and materials and receiving a realistic looking render
+they combined all that data with custom data passes
+that tweaked things like the focus plane or the way the light worked in an image.
+This combo allowed the renderer to produce stylized results.
+For example, in "Into the Spider-verse", out of focus elements aren't blurry.
+Instead, the colors split as if the screen printing on an actual comic book was done poorly.
+Lighting and shadow were approached in new ways too.
+Light often reveals halftone dots.
+And shadows create sketchy hatch marks.
+But there's more than just shading magic happening here.
+Non-photorealistic renderings often use linework
+2D elements like speed lines and doubles
+and variable frame rates to pull these frames further away from reality
+and often, closer to the concept art.
+Just two months after its release
+"Into the Spider-Verse" became the highest grossing film
+Sony Pictures animation had ever made.
+It doesn't hold a candle to Pixar in terms of lifetime gross:
+"Incredibles 2" sits at the number one spot while Spider-verse doesn't even crack the top 50.
+But, much like Pixar did in the first wave of CG animated features
+"Into the Spider-Verse" redefined the visual goals for animation studios.
+2021's "The Mitchells vs the Machines" and 2022's "Puss in Boots"
+take non-photorealistic rendering in a different, more painterly direction
+where out-of-focus objects become simplified shapes
+emulating the way that artists may use simplified marks in backgrounds
+"In the Mitchells vs the Machines", shadows create different marker textures.
+Puss in Boots' simplified 2D cutaways mimic the graphic bursts of Into the Spider-verse.
+People were like, "Oh, this is looks really good and it's different".
+So now, like all future projects at studios from DreamWorks and Imageworks and Pixar
+they're looking at the next whatever, five years or whatnot.
+It's all like very stylized.
+And that's really exciting
+because non-photorealism allows animated movies to take advantage of the things that make them special.
+They can be anything the imagination allows.

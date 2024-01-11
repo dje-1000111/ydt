@@ -1,0 +1,114 @@
+version: "3.9"
+
+services:
+  django_app:
+    # container_name: django_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+      - static_volume:/app/staticfiles
+    command: sh -c "python manage.py collectstatic --no-input && gunicorn --bind=0.0.0.0:8000 config.wsgi:application"
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+    depends_on:
+      - db
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - 1337:80
+    volumes:
+      - static_volume:/app/staticfiles
+    restart: on-failure
+    depends_on:
+      - django_app
+  db:
+    restart: always
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    # environment:
+    #   POSTGRES_DB: dictation
+    #   POSTGRES_USER: dictadmin
+    #   POSTGRES_PASSWORD: 2-fp8aq_61nqm-yH5
+volumes:
+  app_volume:
+  static_volume:
+  postgres_data:
+
+    # services:
+    #   web:
+    #     build: ./
+    #     command: python manage.py runserver 0.0.0.0:8000
+    #     volumes:
+    #       - ./app/:/usr/src/app/
+    #     ports:
+    #       - 8000:8000
+    #     env_file:
+    #       - ./.env # .dev
+    #     depends_on:
+    #       - db
+    #   db:
+    #     image: postgres:15
+    #     volumes:
+    #       - postgres_data:/var/lib/postgresql/data/
+    #     env_file:
+    #       - ./.env
+    # nginx:
+    #   build: ./nginx
+    #   volumes:
+    #     - static_volume:/home/app/web/staticfiles
+    #   ports:
+    #     - 1337:80
+    #   depends_on:
+    #     - web
+
+    # volumes:
+    #   postgres_data:
+    #   static_volume:
+
+    # services:
+    #   django_app:
+    #     container_name: django_app
+    #     build: .
+    #     volumes:
+    #       - .:/app
+    #     ports:
+    #       - 8000:8000
+    #     env_file: .env
+    #     depends_on:
+    #       - db
+    #   nginx:
+    #     container_name: nginx
+    #     image: nginx
+    #     ports:
+    #       - 80:80
+    #     volumes:
+    #       - ./nginx/:/etc/nginx/conf.d
+    #       - static_volume:/app/staticfiles
+    #       - media_volume:/app/public/media
+    #     restart: on-failure
+    #     depends_on:
+    #       - django
+    #     networks:
+    #       - nginx_network
+
+    #   db:
+    #     restart: always
+    #     image: postgres:13
+    #     volumes:
+    #       - postgres_data:/var/lib/postgresql/data/
+    #     ports:
+    #       - "5432:5432"
+    #     env_file: .env
+    # volumes:
+    #   postgres_data: {}

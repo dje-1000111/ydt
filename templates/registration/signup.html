@@ -1,0 +1,60 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+{% load extra_filters %}
+{% block title %}YouDicTube - Sign up{% endblock title %}
+{% block style %}
+<link href="{% static 'css/home.css' %}" rel="stylesheet">
+{% endblock style %}
+{% block css_container %}<div class="grid-home-container" id="hcontainer">{% endblock css_container %}
+{% block signup %}
+<main id="prof">
+   
+
+    {% if messages %}
+        <div id="profile-container" class="profile-container h-100">
+        <ul class="d-contents float-start p-0 w-100">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div id="profile-container" class="profile-container h-100 p-5">
+    {% endif %} 
+
+
+        <div class="d-flex justify-content-center align-items-center align-content-center mt-5 mb-5">
+            <div class="input-group mb-3 d-flex justify-content-center bg-light rounded p-3 shad w-300">
+                <form method="post">{% csrf_token %}
+                    <h2 class="bg-light p-2 m-2">Sign up</h2>
+                        {% if form.username.errors %}
+                            <ul class="errorlist alert alert-danger"><li>{{ form.username.errors|escape }}</li></ul>
+                        {% endif %}
+                        {% if form.email.errors %}
+                            <ul class="errorlist alert alert-danger"><li>{{ form.email.errors|escape }}</li></ul>
+                        {% endif %}
+                        {% if form.password1.errors %}
+                            <ul class="errorlist alert alert-danger"><li>{{ form.password1.errors|escape }}</li></ul>
+                        {% endif %}
+                        {% if form.password2.errors %}
+                            <ul class="errorlist alert alert-danger"><li>{{ form.password2.errors|escape }}</li></ul>
+                        {% endif %}
+
+                        <label class="form-label text-dark s-label mt-3" for="id_username">Username</label>
+                        {{ form.username }}
+
+                        <label class="form-label text-dark s-label mt-3" for="id_email">Email address</label>
+                        {{ form.email }}
+
+                        <label class="form-label text-dark s-label mt-3" for="id_password1">Password</label>
+                        {{ form.password1 }}
+
+                        <label class="form-label text-dark s-label mt-3" for="id_password2">Password confirmation</label>
+                        {{ form.password2 }}
+
+                        <button type="submit" class="btn btn-primary w-100 mt-3">Sign up</button>
+                </form>
+            </div> 
+        </div> 
+    </div>
+</main>
+{% endblock %}

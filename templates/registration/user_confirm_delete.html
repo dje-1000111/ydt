@@ -1,0 +1,44 @@
+{% extends "pages/base.html" %}
+{% load static %}
+{% block title %}Confirm delete account{% endblock title %}
+{% block css_container %}<div class="grid-home-container" id="hcontainer">{% endblock css_container %}
+{% block user_confirm_delete %}      
+<main id="prof">
+
+  {% if messages %}
+  <ul class="d-block float-start p-0 w-100">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+  </ul>
+  {% endif %} 
+
+  <div id="profile-container" class="p-5 bonus-container h-100">
+    <h2>Confirm delete your account</h2><hr>
+    {% comment %} <div id="profile-container" class="p-5 profile-container h-100 d-flex justify-content-center align-items-center align-content-center"> {% endcomment %}
+      {% comment %} <div class="input-group mb-3 d-flex justify-content-center bg-light rounded p-3 shad w-300"> {% endcomment %}
+
+
+        <form id="confdel" method="post" class="del-account">{% csrf_token %}</form>
+      
+            <div class="d-flex h-100 flex-column mt-2 mb-3">
+              {% if request.user.username == object.username or request.user.id == object.id %}
+              <p>Are you sure you want to delete your account?</p> 
+              {% else %}
+              <p>Permission denied</p>
+              {% endif %}
+         
+              <div class="p-5 h-75 d-flex flex-row flex-nowrap justify-content-end align-items-end">
+         
+
+         <button form="confdel" class="btn btn-danger float-end me-3" type="submit">Yes, I'm sure</button>
+         <a href="{% url 'auth:profile' %}"
+         class="btn btn-warning float-end">Cancel</a>         
+      </div>
+      
+
+    </div>
+  </div>
+  </main>
+
+{% endblock user_confirm_delete %}

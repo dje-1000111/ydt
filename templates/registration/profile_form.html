@@ -1,0 +1,32 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+{% block css_container %}<div class="grid-home-container" id="hcontainer">{% endblock css_container %}
+{% block update_profile %}
+{% if request.user.is_authenticated %}
+<main id="prof">
+  <div id="profile-container" class="p-5 profile-container h-100 d-flex flex-column justify-content-around align-items-center align-content-center">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}  
+    {% if form.username.errors %}
+      <ul class="errorlist alert alert-danger"><li>{{ form.username.errors|escape }}</li></ul>
+    {% endif %}
+   <div class="input-group mb-3 d-flex justify-content-center bg-light rounded p-3 shad w-300">
+    <h2>Edit</h2><hr>    
+    <form id="update" method="post">   {% csrf_token %} 
+      <label class="form-label text-dark s-label mt-3" for="id_username">Username</label>
+        {{ form.username }}
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary mt-3 w-45">Update</button>
+        <a href="{% url 'auth:profile' %}" class="btn btn-outline-secondary w-45 ms-3 mt-3">Cancel</a>
+      </div>
+    </form>
+    </div>
+  </div>
+</main>
+{% endif %}
+{% endblock update_profile %}

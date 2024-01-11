@@ -1,0 +1,90 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+{% load compress %}
+{% block title %}{{ topic_name|capfirst }} - YouDicTube{% endblock title %}
+{% comment %} {% block style %}<link href="{% static 'css/style.css' %}" rel="stylesheet">{% endblock style %} {% endcomment %}
+{% block head_script %}<script src="{% static 'js/video.js' %}"></script>{% endblock head_script %}
+{% block css_container %}<div class="grid-topic-container" id="tcontainer">{% endblock css_container %}
+{% block index %}
+{% spaceless %}
+    <div class="subhead" id="subh">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="m-4 alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        <h2>{{vid_title}} <span id="video-title"></span><i id="ivideo-title"></i></h2>
+        {% if user.is_authenticated %}
+            <div class="star-rating">
+                Level of difficulty : 
+                {% for star in stars %}
+                    {% if star == star_rating %}
+                        <input type="radio" id="{{dictation_id}}_{{star}}" name="rate" value="{{star}}" checked="">
+                        <label id="label-{{dictation_id}}_{{star}}" for="{{dictation_id}}_{{star}}" title="rating: {{star}}"></label>  
+                    {% else %}
+                        <input type="radio" id="{{dictation_id}}_{{star}}" name="rate" value="{{star}}">
+                        <label id="label-{{dictation_id}}_{{star}}" for="{{dictation_id}}_{{star}}" title="rating: {{star}}"></label>  
+                    {% endif %}    
+                {% endfor %} 
+            </div>
+                <p>As a logged in user you can rate the difficulty of this dictation. You can also continue your progress where you left off last time.<br>Otherwise, you always start again at the beginning.</p>
+        {% else %}
+            <span class="bg-info p-2 d-flex w-25 mt-5">Save your progress -><a class="text-primary" href="{% url 'auth:login' %}"> Log in</a></span>
+        {% endif %} 
+    </div>
+    <div id="embvid" class="embeded-video">
+        <div id="blur">
+            <div id="player"></div>
+        </div>
+    </div>
+    <div id="text-area" class="text-area"><div id="tip" class="tip mb-3 float-end"></div>
+        <button type="button" class="btn btn-outline-secondary w-play mb-3" id="replay">Play</button><button type="button"
+            id="blur-btn" class="btn btn-outline-secondary mb-3 col-3 float-end">Blur video</button>
+        <div class="counter"><button type="button" id="previous" class="btn btn-sm active mb-3 border-0"><i
+                    class="fa-solid fa-left-long mt-3" ></i></button><span><span
+                    id="counter"> {{ line_nb }} </span> / {{total_lines}}</span><button type="button" id="go-next"
+                class="btn btn-sm active mb-3 border-0"><i class="fa-solid fa-right-long mt-3"></i></button>
+        </div>
+
+        {{form}}
+        <button type="button" class="btn btn-primary check-btn" id="check">Verify</button>
+        <button type="button" class="btn btn-warning check-btn ms-2" id="reveal">Reveal 1st letter</button>
+        <span id="complete"></span>
+        <br>
+        <p> {{result}} </p>
+        Correction:<br>
+        <img id="imgb64" src='data:image/jpeg;base64,{{ b64_img }}' alt="poster" hidden>
+        <div id="result_correction" class="text-entry"></div>
+    </div>
+    <div id="bonus-txt" class="bonus-txt">
+        <h4>The story until the last validated segment</h4>
+        <div id="bonus-container" class="bonus-container">
+            <div>
+                <ul id="story-segment"></ul>
+            </div>
+        </div>
+        {% if user.is_authenticated %}
+        <script>const dictation_id = {{ dictation_id }};</script>
+        {% else %}
+        <script>const dictation_id = null;</script>
+        {% endif %}
+    </div>
+    {% endspaceless %}
+    <script>
+        const aptc = "{% url 'dictation:ajax_post_textarea_content' %}",
+            aprr = "{% url 'dictation:ajax_post_request_rating' %}",
+            topicname = '{{ topic_name }}',
+            vid = '{{ video_id }}',
+            b64_img = '{{ b64_img }}',
+            totl = {{ total_lines }},
+            ts = {{ timestamps }},
+            tips = {{ help|safe }};
+        var lineNb = {{ line_nb }},
+            implines = {{ lines }},
+            lines = [];
+        lines = implines 
+    </script>
+    <script src="{% static 'js/topic.js' %}"></script>
+    <script src="{% static 'js/assets/scripts/topic/index.bundle.js' %}"></script>
+    {% comment %} <script src="{% static 'js/bundle.js' %}"></script> {% endcomment %}
+{% endblock index %}

@@ -1,0 +1,82 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+{% load adjusted_elided_page %}
+{% load extra_filters %}
+{% block title %}youdictube - dictations{% endblock title %}
+
+{% block css_container %}<div class="grid-home-container" id="hcontainer">{% endblock css_container %}
+{% block home %}
+<main>
+    {% if messages %}
+    <ul class="d-block float-start p-0 w-100">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %} 
+    <div id="tt" class="tooltipz">Get word definition
+        <span class="bg-info p-2 float-end mb-3 tooltiptext">Double click on a word to get its definition</span>
+      </div> 
+    <div class="mb-5 w-75">
+        <h2>Improve your listening, enrich your vocabulary, your grammar, learn new words using dictation</h2>
+    </div>
+    <h3>Select your topic</h3>
+    <p>You can choose a topic just below and start a new dictation from a YouTube video.<br>Each sentence is not too
+        long
+        but just in case, if you are struggling with the sound,
+        there is a little help:<br> when you check your spelling and if what you wrote is right, you can then click on the reveal button tree times by sentence to display the very next letter.<br>
+        Of course, it's not the purpose of using the help to write the text all along by this way, it's a real dictation
+        so you have to play the game.
+    </p><p>To make sure you don't see the sentence written in the video, you can blur it.</p>
+    <table class="table table-striped-columns">
+        <tr>
+            <th style="width: 120px;">Thumbnail</th>
+            <th>Topic</th>
+            <th>Video duration</th>
+            <th>Average difficulty</th>
+        {% if user.is_authenticated %}<th>Personal status</th>{% endif %}
+        </tr>        
+        {% for item in page_obj %}
+            <tr>
+                <td class="hometd p-0"><a href="{% url 'dictation:topic' item.slug %}"><img src="https://img.youtube.com/vi/{{item.video_id}}/1.jpg" alt="thumbnail of {{item.video_id}}"></a></td>
+                <td><a class="link-wrap" href="{% url 'dictation:topic' item.slug %}"><span class="link"> {{ item|capfirst }}</span></a></td>
+                <td>about {{item|duration}} mn</td>
+                <td>{{item.level|starize}}</td> 
+                {% if user.is_authenticated %}<td>
+                    {% for dictation in practice %} 
+                        {% if dictation.dictation_id == item.id %} 
+                            {% practice_status dictation.is_done dictation.user_current_line dictation.dictation.total_line dictation.lines %}  
+                        {% endif %} 
+                    {% endfor %}</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+    <ul class="pagination justify-content-center flex-wrap mt-5 mb-5">
+        {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+            <li class="disabled page-item"><span class="page-link">&laquo;</span></li>
+        {% endif %}
+        {% adjusted_elided_page paginator page_obj.number as page_range %}
+        {% for page_num in page_range|default_if_none:page_obj.paginator.get_elided_page_range %}
+            {% if page_obj.number == page_num %}
+                <li class="active page-item"><span class="page-link">{{ page_num }} <span class="sr-only"></span></span>
+                </li>
+            {% else %}
+                {% if page_num == page_obj.paginator.ELLIPSIS %}
+                    <li class="page-item"><span class="page-link">{{ page_num }}</span></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a></li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+        {% else %}
+            <li class="disabled page-item"><span class="page-link">&raquo;</span></li>
+        {% endif %}
+    </ul>
+</main>
+<script src="{% static 'js/assets/scripts/home/index.bundle.js' %}"></script>
+{% endblock home %}

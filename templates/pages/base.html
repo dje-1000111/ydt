@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="icon" type="image/x-icon" href="{% static 'img/favydt.png' %}">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+    {% block head_script %}{% endblock head_script %}
+</head>
+<body>
+  {% csrf_token %}
+  <script>
+      var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+      const prde = "{% url 'dictation:ajax_post_request_definition' %}";
+  </script>
+  {% spaceless %}
+  {% block css_container %}{% endblock css_container %}
+      <header>
+        <nav class="navbar navbar-expand-lg navbar-bg z-2">
+          <div class="container-fluid" style="background-color: #1f1f1f;">
+            <button class="navbar-toggler me-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon">
+                <i class="fas fa-bars" style="color:#fff; font-size:25px;"></i>
+              </span>
+            </button>
+            <a class="navbar-brand" href="{% url 'dictation:home' %}">
+              <div class="applogo">
+                <img class="ydt" src="{% static 'img/logo.svg' %}" alt="buble">
+              </div>
+            </a>
+            <button id="ligbtn" data-light="light" class="light-button btn ms-auto me-0 order-lg-last"
+            hidden>
+            <i class="fa-solid fa-sun fa-sm text-light"></i>
+            </button>
+            <button id="darkbtn" data-dark="dark" class="dark-button btn ms-auto me-0 order-lg-last">
+              <i class="fa-solid fa-moon fa-sm text-light"></i>
+            </button>
+            <div class="collapse navbar-collapse d-lg-flex" id="navbarSupportedContent">
+                {% if user.is_authenticated %}
+                  <ul class="navbar-nav col-lg-6 justify-content-lg-start">
+                    <li class="nav-item dropdown mt-2 mb-2">
+                      <a class="dropdown-toggle btn btn-secondary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Menu
+                      </a>
+                      <ul class="dropdown-menu mb-2">
+                        <li><a class="dropdown-item" href="{% url 'auth:profile' %}">Profile</a></li>
+                        <li><a class="dropdown-item" href="{% url 'auth:signout' %}">Logout</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <div class="d-lg-flex col-lg-5 justify-content-lg-end"></div>
+                {% else %}
+                    <ul class="list-group list-group-horizontal-lg ms-auto">    
+                      <li class="btn btn-secondary btn-sm m-2 sigbnt">    
+                        <a class="nav-link text-light" href="{% url 'auth:signup' %}" >Sign up
+                        </a>
+                      </li>
+                      <li class="btn btn-secondary btn-sm m-2 sigbnt">
+                        <a class="nav-link text-light" href="{% url 'auth:login' %}" >Log in
+                        </a> 
+                      </li>
+                    </ul>  
+                {% endif %}
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      {% block index %}{% endblock %}
+      {% block home %}{% endblock %}
+      {% block profile %}{% endblock %}
+      {% block signup %}{% endblock %}
+      {% block signin %}{% endblock %}
+      {% block content %}{% endblock %}
+      {% block reset_done %}{% endblock %}
+      {% block update_profile %}{% endblock %}
+      {% block user_confirm_delete %}{% endblock %}
+      {% block password_change %}{% endblock %}
+
+      <footer>
+        <span class="engine">Django - JS</span><span class="nocop">youdictube 2023</span><span class="version">Version 1 - vanilla</span>
+        <span class="lorem">
+          <ul>
+            <li>truc</li>
+            <li>bidule</li>
+            <li>machin</li>
+            <li>chose</li>
+          </ul>
+        </span>
+      </footer>
+  </div>
+  {% endspaceless %}
+  {% comment %} <script src="{% static 'js/toggle_mode.js' %}"></script> {% endcomment %}
+  <script src="{% static 'js/assets/scripts/base/index.bundle.js' %}"></script>
+</body>
+</html>
