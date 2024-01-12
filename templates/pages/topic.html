@@ -1,8 +1,7 @@
 {% extends 'pages/base.html' %}
 {% load static %}
 {% load compress %}
-{% block title %}{{ topic_name|capfirst }} - YouDicTube{% endblock title %}
-{% comment %} {% block style %}<link href="{% static 'css/style.css' %}" rel="stylesheet">{% endblock style %} {% endcomment %}
+{% block title %}{{ topic_name|capfirst }} - {% endblock title %}
 {% block head_script %}<script src="{% static 'js/video.js' %}"></script>{% endblock head_script %}
 {% block css_container %}<div class="grid-topic-container" id="tcontainer">{% endblock css_container %}
 {% block index %}
@@ -37,7 +36,9 @@
             <div id="player"></div>
         </div>
     </div>
-    <div id="text-area" class="text-area"><div id="tip" class="tip mb-3 float-end"></div>
+    <div id="text-area" class="text-area">
+        
+        <div id="tip" class="tip mb-3 float-end"></div>
         <button type="button" class="btn btn-outline-secondary w-play mb-3" id="replay">Play</button><button type="button"
             id="blur-btn" class="btn btn-outline-secondary mb-3 col-3 float-end">Blur video</button>
         <div class="counter"><button type="button" id="previous" class="btn btn-sm active mb-3 border-0"><i
@@ -45,7 +46,6 @@
                     id="counter"> {{ line_nb }} </span> / {{total_lines}}</span><button type="button" id="go-next"
                 class="btn btn-sm active mb-3 border-0"><i class="fa-solid fa-right-long mt-3"></i></button>
         </div>
-
         {{form}}
         <button type="button" class="btn btn-primary check-btn" id="check">Verify</button>
         <button type="button" class="btn btn-warning check-btn ms-2" id="reveal">Reveal 1st letter</button>
@@ -86,5 +86,4 @@
     </script>
     <script src="{% static 'js/topic.js' %}"></script>
     <script src="{% static 'js/assets/scripts/topic/index.bundle.js' %}"></script>
-    {% comment %} <script src="{% static 'js/bundle.js' %}"></script> {% endcomment %}
 {% endblock index %}

@@ -2,8 +2,7 @@
 {% load static %}
 {% load adjusted_elided_page %}
 {% load extra_filters %}
-{% block title %}youdictube - dictations{% endblock title %}
-
+{% block title %}{% endblock title %}
 {% block css_container %}<div class="grid-home-container" id="hcontainer">{% endblock css_container %}
 {% block home %}
 <main>
@@ -38,7 +37,7 @@
         </tr>        
         {% for item in page_obj %}
             <tr>
-                <td class="hometd p-0"><a href="{% url 'dictation:topic' item.slug %}"><img src="https://img.youtube.com/vi/{{item.video_id}}/1.jpg" alt="thumbnail of {{item.video_id}}"></a></td>
+                <td class="hometd p-0"><a href="{% url 'dictation:topic' item.slug %}"><img style="width:120px;" src="https://img.youtube.com/vi/{{item.video_id}}/0.jpg" alt="thumbnail of {{item.video_id}}"></a></td>
                 <td><a class="link-wrap" href="{% url 'dictation:topic' item.slug %}"><span class="link"> {{ item|capfirst }}</span></a></td>
                 <td>about {{item|duration}} mn</td>
                 <td>{{item.level|starize}}</td> 

@@ -3,7 +3,6 @@ from django.urls import path, include
 
 from django.contrib.auth.views import (
     PasswordChangeView,
-    PasswordResetView,
     PasswordResetDoneView,
     PasswordResetConfirmView,
     PasswordResetCompleteView,
@@ -17,7 +16,6 @@ auth_patterns = (
     [
         path("accounts/signup/", views.signup, name="signup"),
         path("accounts/login/", views.login, name="login"),
-        # path("accounts/profile/", views.ProfileView.as_view(), name="profile"),
         path("accounts/profile/", views.profile, name="profile"),
         path(
             "accounts/profile/edit",
