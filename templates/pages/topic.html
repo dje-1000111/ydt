@@ -28,7 +28,7 @@
             </div>
                 <p>As a logged in user you can rate the difficulty of this dictation. You can also continue your progress where you left off last time.<br>Otherwise, you always start again at the beginning.</p>
         {% else %}
-            <span class="bg-info p-2 d-flex w-25 mt-5">Save your progress -><a class="text-primary" href="{% url 'auth:login' %}"> Log in</a></span>
+            <span class="bg-info p-2 d-flex fitcontent mt-5">Save your progress -><a class="text-primary" href="{% url 'auth:login' %}"> Log in</a></span>
         {% endif %} 
     </div>
     <div id="embvid" class="embeded-video">
@@ -38,21 +38,31 @@
     </div>
     <div id="text-area" class="text-area">
         
-        <div id="tip" class="tip mb-3 float-end"></div>
-        <button type="button" class="btn btn-outline-secondary w-play mb-3" id="replay">Play</button><button type="button"
-            id="blur-btn" class="btn btn-outline-secondary mb-3 col-3 float-end">Blur video</button>
-        <div class="counter"><button type="button" id="previous" class="btn btn-sm active mb-3 border-0"><i
-                    class="fa-solid fa-left-long mt-3" ></i></button><span><span
-                    id="counter"> {{ line_nb }} </span> / {{total_lines}}</span><button type="button" id="go-next"
-                class="btn btn-sm active mb-3 border-0"><i class="fa-solid fa-right-long mt-3"></i></button>
+        <div id="tip" class="tip"></div>
+    <div id="counter-cont" class="d-flex justify-content-between counter-cont">
+        <button type="button" title="previous" id="previous" class="btn btn-sm active border-0 mb-3 mt-3">
+            <i class="fa-solid fa-left-long" style="transform: scale(3,3);"></i>
+        </button>                
+        <div class="d-flex align-content-center align-items-center rounded mb-3 mt-3">
+            <span id="counter"> {{ line_nb }} </span> / {{total_lines}}
         </div>
-        {{form}}
-        <button type="button" class="btn btn-primary check-btn" id="check">Verify</button>
-        <button type="button" class="btn btn-warning check-btn ms-2" id="reveal">Reveal 1st letter</button>
-        <span id="complete"></span>
+        <button type="button" title="next" id="go-next" class="btn btn-sm active border-0 mb-3 mt-3">
+            <i class="fa-solid fa-right-long" style="transform: scale(3,3);"></i>
+        </button>                
+    </div> 
+    {{form}}
+    <div class="d-flex justify-content-between rounded bg-white mt-3">
+        <div class="d-flex align-items-center p-2">
+            <button type="button" class="btn btn-outline-secondary  ms-1" title="play" id="replay"><i id="iplaystop" class="fa-solid fa-play"></i></button>
+            <button type="button" class="btn btn-primary ms-1" title="check" id="check"><i class="fa-solid fa-check"></i></button>
+            <button type="button" class="btn btn-warning ms-1" title="reveal first letter" id="reveal"> <i class="fa-solid fa-0"></i></button> 
+            <button type="button" id="blur-btn" class="btn btn-outline-secondary ms-1" title="Blur video"><i id="iblur" class="fa-solid fa-droplet"></i></button>
+        </div>            
+            <span id="complete" class="d-flex p-2"></span>
+    </div>
         <br>
         <p> {{result}} </p>
-        Correction:<br>
+        <p>Correction:</p><br>
         <img id="imgb64" src='data:image/jpeg;base64,{{ b64_img }}' alt="poster" hidden>
         <div id="result_correction" class="text-entry"></div>
     </div>
